@@ -5,6 +5,8 @@ Plugin Name: CH Kanban
 Plugin URI:
 Description: Create a simple kanban in youtr wordpress for your tasks
 Version: 1.0
+Requires at least: 4.7
+Tested up to: 6.6 < 6.8
 Author: Carlos Herrera
 Author URI:
 Framework: Antonella Framework for WP

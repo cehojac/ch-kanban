@@ -3,7 +3,7 @@ Contributors: cehojac
 Donate link: https://paypal.me/cehojac
 Tags: kanban, task management, project
 Requires at least: 4.7
-Tested up to: 6.6
+Tested up to: 6.6 < 6.8
 Stable tag: 1.0
 Requires PHP: 8.0
 License: GPLv2 or later

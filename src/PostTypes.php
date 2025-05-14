@@ -37,7 +37,6 @@ class PostTypes
      */
     public function register_post_type($pt)
     {
-        $config = new Config();
         $img = explode('.', $pt['image']);
         $image = (isset($img[1]) && strlen($img[1]) <= 4) ? plugins_url('assets/img/' . $pt['image'], dirname(__FILE__)) : $pt['image'];
 
@@ -46,23 +45,21 @@ class PostTypes
         $slug = $pt['slug'];
         $taxonomy = $pt['taxonomy'];
 
-        // Definición de variables de traducción
-        $pt_label = $pt['labels']['name'] ?? $plural;
-        $pt_singular_name = $pt['labels']['singular_name'] ?? $singular;
-        // Comentario para ayudar a los traductores a entender el propósito del marcador de posición %s
-        /* translators: %s es el nombre plural del tipo de contenido personalizado */
-        $name = sprintf(__('%1$s', 'ch-kanban'), $pt_singular_name);
-        $singular_name = sprintf(__('%s', Config::TEXT_DOMAIN), $pt_singular_name);
-        $menu_name = __($pt['labels']['menu_name'] ?? $singular, Config::TEXT_DOMAIN);
-        $all_items = __($pt['labels']['all_items'] ?? $plural, Config::TEXT_DOMAIN);
-        $view_item = sprintf(esc_html__('See %s', Config::TEXT_DOMAIN), $singular);
-        $add_new_item = sprintf(esc_html__('Add %s', Config::TEXT_DOMAIN), $singular);
-        $add_new = sprintf(esc_html__('Add %s', Config::TEXT_DOMAIN), $singular);
-        $edit_item = sprintf(esc_html__('Edit %s', Config::TEXT_DOMAIN), $singular);
-        $update_item = sprintf(esc_html__('Update %s', Config::TEXT_DOMAIN), $singular);
-        $search_items = sprintf(esc_html__('Search %s', Config::TEXT_DOMAIN), $singular);
-        $not_found = sprintf(esc_html__('%s not found', Config::TEXT_DOMAIN), $singular);
-        $not_found_in_trash = sprintf(esc_html__('%s not found in trash', Config::TEXT_DOMAIN), $singular);
+        // No uses funciones de traducción con variables, solo con literales
+        $name = $plural;
+        $singular_name = $singular;
+        $menu_name = $pt['labels']['menu_name'] ?? $singular;
+        $all_items = $pt['labels']['all_items'] ?? $plural;
+
+        // Usa sprintf solo con plantillas traducidas
+        $view_item = sprintf(esc_html__('See %s', 'ch-kanban'), $singular);
+        $add_new_item = sprintf(esc_html__('Add %s', 'ch-kanban'), $singular);
+        $add_new = sprintf(esc_html__('Add %s', 'ch-kanban'), $singular);
+        $edit_item = sprintf(esc_html__('Edit %s', 'ch-kanban'), $singular);
+        $update_item = sprintf(esc_html__('Update %s', 'ch-kanban'), $singular);
+        $search_items = sprintf(esc_html__('Search %s', 'ch-kanban'), $singular);
+        $not_found = sprintf(esc_html__('%s not found', 'ch-kanban'), $singular);
+        $not_found_in_trash = sprintf(esc_html__('%s not found in trash', 'ch-kanban'), $singular);
 
         $labels = [
             'name' => $name,
@@ -86,10 +83,10 @@ class PostTypes
             'feeds' => $pt['rewrite']['feeds'] ?? false,
         ];
 
-        $description = sprintf(esc_html__('Info about %s', Config::TEXT_DOMAIN), $singular);
+        $description = sprintf(esc_html__('Info about %s', 'ch-kanban'), $singular);
 
         $args = [
-            'label' => __($pt['args']['label'] ?? $plural, Config::TEXT_DOMAIN),
+            'label' => $plural,
             'labels' => $labels,
             'description' => $description,
             'supports' => $pt['args']['supports'] ?? ['title', 'editor', 'comments', 'thumbnail'],
@@ -122,7 +119,7 @@ class PostTypes
                     $tx,
                     [$slug],
                     [
-                        'label' => __($tx, Config::TEXT_DOMAIN),
+                        'label' => $tx,
                         'show_in_rest' => true,
                         'show_ui' => true,
                         'show_admin_column' => true,
@@ -144,46 +141,24 @@ class PostTypes
 
     public function add_taxonomy($tx)
     {
-        $config = new Config();
-        $labels = [];
-        $args = [];
-        $capabilities = [];
-        $rewrite = [];
-        $post_type = $tx['post_type'];
-        $singular = $tx['singular'];
-        $plural = $tx['plural'];
-        $slug = $tx['slug'];
-
-
-        // Definición de variables de traducción
-        $name = _x($tx['labels']['name'] ?? $plural, 'Taxonomy general name', Config::TEXT_DOMAIN);
-        $singular_name = _x($tx['labels']['singular_name'] ?? $singular, 'Taxonomy singular name', Config::TEXT_DOMAIN);
-        $search_items = sprintf(esc_html__('Search %s', Config::TEXT_DOMAIN), $singular);
-        $all_items = sprintf(esc_html__('All %s', Config::TEXT_DOMAIN), $singular);
-        $parent_item = sprintf(esc_html__('Parent %s', Config::TEXT_DOMAIN), $singular);
-        $parent_item_colon = sprintf(esc_html__('Parent %s:', Config::TEXT_DOMAIN), $singular);
-        $edit_item = sprintf(esc_html__('Edit %s', Config::TEXT_DOMAIN), $singular);
-        $view_item = sprintf(esc_html__('View %s', Config::TEXT_DOMAIN), $singular);
-        $update_item = sprintf(esc_html__('Update %s', Config::TEXT_DOMAIN), $singular);
-        $add_new_item = sprintf(esc_html__('Add new %s', Config::TEXT_DOMAIN), $singular);
-        $new_item_name = sprintf(esc_html__('New %s', Config::TEXT_DOMAIN), $singular);
-        $menu_name = _x($tx['labels']['menu_name'] ?? $plural, 'Taxonomy menu name', Config::TEXT_DOMAIN);
-        $popular_items = _x('Popular ' . $plural, 'Taxonomy popular items', Config::TEXT_DOMAIN);
         $labels = [
-            'name' => $name,
-            'singular_name' => $singular_name,
-            'search_items' => $search_items,
-            'all_items' => $all_items,
-            'parent_item' => $parent_item,
-            'parent_item_colon' => $parent_item_colon,
-            'edit_item' => $edit_item,
-            'view_item' => $view_item,
-            'update_item' => $update_item,
-            'add_new_item' => $add_new_item,
-            'new_item_name' => $new_item_name,
-            'menu_name' => $menu_name,
-            'popular_items' => $popular_items,
+            'name' => $tx['labels']['name'] ?? $tx['plural'],
+            'singular_name' => $tx['labels']['singular_name'] ?? $tx['singular'],
+            'search_items' => 'Search ' . ($tx['singular'] ?? ''),
+            'all_items' => 'All ' . ($tx['singular'] ?? ''),
+            'parent_item' => 'Parent ' . ($tx['singular'] ?? ''),
+            'parent_item_colon' => 'Parent ' . ($tx['singular'] ?? '') . ':',
+            'edit_item' => 'Edit ' . ($tx['singular'] ?? ''),
+            'view_item' => 'View ' . ($tx['singular'] ?? ''),
+            'update_item' => 'Update ' . ($tx['singular'] ?? ''),
+            'add_new_item' => 'Add new ' . ($tx['singular'] ?? ''),
+            'new_item_name' => 'New ' . ($tx['singular'] ?? ''),
+            'menu_name' => $tx['labels']['menu_name'] ?? $tx['plural'],
+            'popular_items' => 'Popular ' . ($tx['plural'] ?? ''),
         ];
+
+        $slug = $tx['slug'];
+        $post_type = $tx['post_type'];
 
         $rewrite = [
             'slug' => $slug,
@@ -191,6 +166,14 @@ class PostTypes
             'hierarchical' => $tx['args']['rewrite']['hierarchical'] ?? $tx['rewrite']['hierarchical'] ?? false,
             'ep_mask' => $tx['args']['rewrite']['ep_mask'] ?? $tx['rewrite']['ep_mask'] ?? EP_NONE,
         ];
+
+        $capabilities = [
+            'manage_terms' => $tx['args']['capabilities']['manage_terms'] ?? $tx['capabilities']['manage_terms'] ?? 'manage_' . $slug,
+            'edit_terms' => $tx['args']['capabilities']['edit_terms'] ?? $tx['capabilities']['edit_terms'] ?? 'manage_' . $slug,
+            'delete_terms' => $tx['args']['capabilities']['delete_terms'] ?? $tx['capabilities']['delete_terms'] ?? 'manage_' . $slug,
+            'assign_terms' => $tx['args']['capabilities']['assign_terms'] ?? $tx['capabilities']['assign_terms'] ?? 'edit_' . $slug,
+        ];
+
         $args = [
             'hierarchical' => $tx['args']['hierarchical'] ?? true,
             'labels' => $labels,
@@ -201,7 +184,7 @@ class PostTypes
             'show_in_menu' => $tx['args']['show_in_menu'] ?? true,
             'show_in_rest' => $tx['args']['show_in_rest'] ?? ($tx['gutemberg'] == false ? false : true),
             'query_var' => $slug,
-            'rest_base' => $tx['args']['rest_base'] ?? $plural,
+            'rest_base' => $tx['args']['rest_base'] ?? $tx['plural'],
             'rest_controller_class' => $tx['args']['rest_controller_class'] ?? 'WP_REST_Terms_Controller',
             'show_tagcloud' => $tx['args']['show_tagcloud'] ?? $tx['args']['show_ui'] ?? true,
             'show_in_quick_edit' => $tx['args']['show_in_quick_edit'] ?? $tx['args']['show_ui'] ?? true,
@@ -212,14 +195,7 @@ class PostTypes
             'description' => $tx['args']['description'] ?? '',
         ];
 
-        $capabilities = [
-            'manage_terms' => $tx['args']['capabilities']['manage_terms'] ?? $tx['capabilities']['manage_terms'] ?? 'manage_' . $slug,
-            'edit_terms' => $tx['args']['capabilities']['edit_terms'] ?? $tx['capabilities']['edit_terms'] ?? 'manage_' . $slug,
-            'delete_terms' => $tx['args']['capabilities']['delete_terms'] ?? $tx['capabilities']['delete_terms'] ?? 'manage_' . $slug,
-            'assign_terms' => $tx['args']['capabilities']['assign_terms'] ?? $tx['capabilities']['assign_terms'] ?? 'edit_' . $slug,
-        ];
-
-        register_taxonomy($plural, [$post_type], $args);
+        register_taxonomy($tx['plural'], [$post_type], $args);
     }
 
     public static function registrer_term_tax($terms, $tax)
@@ -229,7 +205,7 @@ class PostTypes
         $parent_term_id = isset($parent_term['term_id']) ? $parent_term['term_id'] : '';
         foreach ($terms as $term) {
             wp_insert_term(
-                __($term, $config->language_name),   // the term 
+                $term,   // the term 
                 $tax, // the taxonomy
                 array(
                     //  'description' => $description,

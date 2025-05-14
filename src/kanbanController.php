@@ -40,8 +40,9 @@ class kanbanController
                 ));
             }
         }
+        $html = kanban_view('backend.tickets.index', compact('terms', 'cards', 'view', 'nonce'));
 
-        echo NXHBQU_view('backend.tickets.index', compact('terms', 'cards', 'view', 'nonce'));
+        echo ($html);
 
 
 
