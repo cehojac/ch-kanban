@@ -1,0 +1,142 @@
+
+.base {
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Droid Sans,Helvetica Neue,sans-serif;
+    font-size: 14px;
+    display: grid;
+    grid-template-rows: max-content auto;
+    grid-gap: 10px;
+    height: 100%;
+    padding: 5px;
+}
+
+.header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr;
+}
+
+.header .left-aligned {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-gap: 1rem;
+    justify-self: flex-start;
+}
+
+.header .right-aligned {
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    grid-gap: 5px;
+    justify-self: flex-start;
+}
+
+.header .logo {
+    background-color: rgba(255, 255, 255, 0.3);
+    justify-self: center;
+}
+
+.header .right-aligned {
+    justify-self: flex-end;
+}
+
+.board {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-rows: max-content auto;
+}
+
+.board-header {
+    color: black;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.board-header-text {
+    font-weight: bold;
+    padding: 5px;
+}
+
+.board-header .left {
+    display: grid;
+    grid-template-columns: repeat(4, max-content);
+    grid-gap: 10px;
+    justify-self: left;
+}
+
+.board-header .right {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    grid-gap: 10px;
+    justify-self: right;
+}
+
+.button {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    padding: 5px;
+    margin: auto !important;
+}
+
+.board-lists {
+    display: grid;
+    /*  grid-auto-columns: 272px; */
+    grid-auto-flow: column;
+    grid-gap: 8px;
+    overflow: auto;
+}
+
+.board-list {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-gap: 10px;
+    height: max-content;
+    padding: 10px;
+    min-height: 50vw;
+    background-color: #fafafa;
+}
+
+.board-list .avatar {
+    border-radius: 50px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    -ms-border-radius: 50px;
+    -o-border-radius: 50px;
+}
+
+.list-title {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-left: 5px;
+}
+.card-thumbnail > div {
+    min-height: 180px;
+    background-size: cover;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+#boardlists .card {
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(9,30,66,.25);
+    padding: 20px;
+    max-width: inherit !important;
+}
+
+.add-card {
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+#boardlists .card-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 15px 0;
+}
+#boardlist .card-time {
+    margin-top: 10px;
+}

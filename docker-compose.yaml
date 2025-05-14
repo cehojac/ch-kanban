@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+    
+  php:
+    image: php:8.1-fpm
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: mysql
+    depends_on:
+      - mysql
+    ports:
+      - "9000:80"
+
+  mysql:
+    container_name: mysql-antonella-ch-kanban
+    image: arm64v8/mysql:9.2.0
+    restart: always
+    ports:
+      - 8081:3306
+    environment:
+      MYSQL_USER: wordpress
+      MYSQL_ROOT_PASSWORD: wordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_PASSWORD: wordpress
+
+  wordpress:
+    hostname: antonella.test
+    container_name: wp-antonella-ch-kanban
+    depends_on:
+      - mysql
+      - php
+    image: wordpress
+    ports:
+      - 8080:80
+   # restart: always
+    volumes:
+      - ./:/var/www/html/wp-content/plugins/ch-kanban
+    environment:
+      WORDPRESS_DB_HOST: mysql:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_TABLE_PREFIX: anto_
+      WORDPRESS_CONFIG_EXTRA: |
+         define('DOMAIN_CURRENT_SITE', 'antonella.test');
+      

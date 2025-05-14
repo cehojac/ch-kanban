@@ -1,0 +1,63 @@
+{
+    "name":"cehojac/antonella-framework-for-wp",
+    "version":"1.8.0",
+    "keywords": ["framework", "wordpress", "plugins"],
+    "prefer-stable": true,
+    "minimum-stability": "dev",
+    "description":"make easy a WordPress Plugin whit a team. Use this framework for simplycity the work in develop a plugin",
+    "type":"project",
+    "authors": [
+        {
+            "name": "Carlos Herrera",
+            "email": "hi@carlos-herrera.com",
+            "homepage": "https://carlos-herrera.com",
+            "role": "Developer"
+        }
+    ],
+      "support": {
+        "email": "antonella.framework@carlos-herrera.com",
+        "docs" : "https://antonellaframework.com/en/documentacion"
+    },
+    "repositories":[
+        {
+            "type":"composer",
+            "url":"https://wpackagist.org"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "jenssegers/blade": "^2.0",
+        "alexis-magina/cmb2-field-post-search-ajax": "^1.1.2",
+        "wpackagist-plugin/cmb2":"^2.10",
+        "illuminate/view":"11.7.0"
+    },
+    "require-dev":{
+        "vlucas/phpdotenv":"^3.5"
+       
+    },
+    "autoload": {
+        "psr-4": {"NXHBQU\\": "src/"},
+        "files": [
+            "src/helpers.php",
+            "vendor/cmb2/init.php",
+            "vendor/cmb2-field-post-search-ajax/cmb-field-post-search-ajax.php"
+        ]
+    },
+    "extra": {
+        "installer-paths": {
+            "vendor/{$name}/": ["type:wordpress-plugin","wordpress-muplugin"]
+        }
+    },
+    "scripts":{
+        "post-create-project-cmd": [
+            "php antonella namespace",
+            "php -r \"copy('.env-example', '.env');\"",
+            "php antonella add blade"
+        ]
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
+    }
+}
