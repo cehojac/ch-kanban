@@ -1,6 +1,6 @@
 <?php
 namespace NXHBQU;
-defined('ABSPATH') or die(exit());
+defined('ABSPATH') or exit;
 
 class CMB2Controller
 {

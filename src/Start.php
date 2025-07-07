@@ -5,7 +5,7 @@
  */
 
 namespace NXHBQU;
-defined('ABSPATH') or die(exit());
+defined('ABSPATH') or exit;
 
 /*
  * Class Start
@@ -19,7 +19,6 @@ class Start
      */
     public function __construct()
     {
-        $language = new Language();
         $hooks = new Hooks();
         $request = new Request();
     }

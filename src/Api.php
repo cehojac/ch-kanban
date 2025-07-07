@@ -1,7 +1,7 @@
 <?php
 
 namespace NXHBQU;
-defined('ABSPATH') or die(exit());
+defined('ABSPATH') or exit;
 
 use NXHBQU\Config;
 
@@ -31,6 +31,7 @@ class Api
                         array(
                             'methods' => $api[1],
                             'callback' => $api[2],
+                            'permission_callback' => '__return_true'
                         )
                     );
                 }

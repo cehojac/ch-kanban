@@ -3,7 +3,7 @@ Contributors: cehojac
 Donate link: https://paypal.me/cehojac
 Tags: kanban, task management, project
 Requires at least: 4.7
-Tested up to: 6.6 < 6.8
+Tested up to: 6.8
 Stable tag: 1.0
 Requires PHP: 8.0
 License: GPLv2 or later
@@ -13,8 +13,7 @@ Effortlessly manage tasks with our WordPress Kanban plugin, streamlining admin p
 
 == Description ==
 
-Our WordPress Kanban plugin offers an intuitive and efficient way to manage tasks directly from the admin panel. Organize your projects into customizable columns, assign tasks, set deadlines, and track progress easily. With a user-friendly interface and customization tools, this plugin enhances productivity by providing a clear and organized view of your projects. Simplify project and team management, improve collaboration, and achieve your goals more effectively with our WordPress Kanban plugin.
-
+CH Kanban is a visual task management tool in Kanban style integrated into the WordPress dashboard. Ideal for teams or individuals who want to organize tickets or workflows directly from their admin panel.
 
 == Frequently Asked Questions ==
 
@@ -32,5 +31,8 @@ In the WordPress administrator section you will find a section called "Ch Kanban
 
 = 1.0 =
 * First launch
+
+== Tested up to ==
+6.8
 
 

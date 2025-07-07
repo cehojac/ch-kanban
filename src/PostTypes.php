@@ -1,7 +1,7 @@
 <?php
 
 namespace NXHBQU;
-defined('ABSPATH') or die(exit());
+defined('ABSPATH') or exit;
 
 use NXHBQU\Config;
 
@@ -28,13 +28,7 @@ class PostTypes
             }
         }
     }
-    /**
-     * Easy add new post_type and taxonomies
-     * Add variables for create a new Post-Type
-     * @version 3
-     * @param array $pt From Config  $config->post_types
-     * @return void
-     */
+
     public function register_post_type($pt)
     {
         $img = explode('.', $pt['image']);
@@ -45,21 +39,19 @@ class PostTypes
         $slug = $pt['slug'];
         $taxonomy = $pt['taxonomy'];
 
-        // No uses funciones de traducción con variables, solo con literales
         $name = $plural;
         $singular_name = $singular;
         $menu_name = $pt['labels']['menu_name'] ?? $singular;
         $all_items = $pt['labels']['all_items'] ?? $plural;
 
-        // Usa sprintf solo con plantillas traducidas
-        $view_item = sprintf(esc_html__('See %s', 'ch-kanban'), $singular);
-        $add_new_item = sprintf(esc_html__('Add %s', 'ch-kanban'), $singular);
-        $add_new = sprintf(esc_html__('Add %s', 'ch-kanban'), $singular);
-        $edit_item = sprintf(esc_html__('Edit %s', 'ch-kanban'), $singular);
-        $update_item = sprintf(esc_html__('Update %s', 'ch-kanban'), $singular);
-        $search_items = sprintf(esc_html__('Search %s', 'ch-kanban'), $singular);
-        $not_found = sprintf(esc_html__('%s not found', 'ch-kanban'), $singular);
-        $not_found_in_trash = sprintf(esc_html__('%s not found in trash', 'ch-kanban'), $singular);
+        $view_item = 'See ' . $singular;
+        $add_new_item = 'Add ' . $singular;
+        $add_new = 'Add ' . $singular;
+        $edit_item = 'Edit ' . $singular;
+        $update_item = 'Update ' . $singular;
+        $search_items = 'Search ' . $singular;
+        $not_found = $singular . ' not found';
+        $not_found_in_trash = $singular . ' not found in trash';
 
         $labels = [
             'name' => $name,
@@ -83,7 +75,7 @@ class PostTypes
             'feeds' => $pt['rewrite']['feeds'] ?? false,
         ];
 
-        $description = sprintf(esc_html__('Info about %s', 'ch-kanban'), $singular);
+        $description = 'Info about ' . $singular;
 
         $args = [
             'label' => $plural,
@@ -112,7 +104,6 @@ class PostTypes
 
         register_post_type($slug, $args);
 
-        // Registrar taxonomías
         if (is_array($taxonomy) && count($taxonomy) > 0) {
             foreach ($taxonomy as $tx) {
                 register_taxonomy(
@@ -129,15 +120,6 @@ class PostTypes
             }
         }
     }
-
-
-    /**
-     * Add taxonomies
-     * Add variables for create a new Taxonomy
-     * @version 1.0
-     * @param array $tx From Config  $config->post_types
-     * @return void
-     */
 
     public function add_taxonomy($tx)
     {
@@ -205,10 +187,9 @@ class PostTypes
         $parent_term_id = isset($parent_term['term_id']) ? $parent_term['term_id'] : '';
         foreach ($terms as $term) {
             wp_insert_term(
-                $term,   // the term 
-                $tax, // the taxonomy
+                $term,
+                $tax,
                 array(
-                    //  'description' => $description,
                     'slug' => strtolower($term),
                     'parent' => $parent_term_id,
                 )

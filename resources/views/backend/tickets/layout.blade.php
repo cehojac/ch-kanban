@@ -10,7 +10,7 @@
               <h1>CH Kanban</h1>
             </div>
             <div class="right-aligned">
-            <!-- <div class="button"></div> -->
+            {{-- <div class="button"></div> --}}
             
             </div>
         </div>
@@ -18,10 +18,10 @@
             <div class="board-header">
             <div class="left">
                 <div class="board-header-text">{{__('Tickets')}}</div>
-              <!--  <div class="button">Todos</div>
+              {{--  <div class="button">Todos</div>
                 <div class="button">Sólo míos</div>
                 <div class="button">Por usuario</div>
-              -->
+              --}}
             </div>
             <div class="right">
                 

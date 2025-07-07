@@ -1,6 +1,6 @@
 <?php
 namespace NXHBQU;
-defined('ABSPATH') or die(exit());
+defined('ABSPATH') or exit;
 
 class kanbanController
 {
@@ -13,7 +13,10 @@ class kanbanController
     {
         global $post;
         $nonce = \wp_create_nonce('ch-kanban');
-        $view = isset($_REQUEST['_wpnonce']) ? (\wp_verify_nonce(sanitize_text_field(wp_unslash($_REQUEST['_wpnonce'])), 'ch-kanban') ? sanitize_text_field($_REQUEST['view']) : '') : '';
+        $view = '';
+        if (isset($_REQUEST['_wpnonce']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_REQUEST['_wpnonce'])), 'ch-kanban')) {
+            $view = isset($_REQUEST['view']) ? sanitize_text_field(wp_unslash($_REQUEST['view'])) : '';
+        }
         if ($view == 'list') {
 
             $terms = [];
@@ -42,7 +45,8 @@ class kanbanController
         }
         $html = kanban_view('backend.tickets.index', compact('terms', 'cards', 'view', 'nonce'));
 
-        echo ($html);
+        echo wp_kses_post($html);
+        return;
 
 
 
@@ -58,14 +62,21 @@ class kanbanController
 
     public static function UpdateTicket()
     {
-        if (!wp_verify_nonce(\sanitize_text_field(\wp_unslash($_POST['nonce'])), 'ch-kanban-ajax')) {
-            die('Busted!');
+        if (
+            !isset($_POST['nonce'], $_REQUEST['id_post'], $_REQUEST['taxonomy'], $_REQUEST['previous']) ||
+            !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'])), 'ch-kanban-ajax')
+        ) {
+            wp_send_json_error(['message' => 'Datos inválidos']);
+            exit;
         }
-        $id_post = str_replace('card-', '', \sanitize_text_field($_REQUEST['id_post']));
-        $taxonomia = \sanitize_text_field($_REQUEST['taxonomy']);
-        $previo = \sanitize_text_field($_REQUEST['previous']);
+
+        $id_post = str_replace('card-', '', sanitize_text_field(wp_unslash($_REQUEST['id_post'])));
+        $taxonomia = sanitize_text_field(wp_unslash($_REQUEST['taxonomy']));
+        $previo = sanitize_text_field(wp_unslash($_REQUEST['previous']));
+
         wp_remove_object_terms($id_post, $previo, 'estado');
         wp_set_object_terms($id_post, $taxonomia, 'estado', true);
     }
+
 }
 //Make whit Antonella Framework

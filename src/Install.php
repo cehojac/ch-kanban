@@ -1,7 +1,7 @@
 <?php
 
 namespace NXHBQU;
-defined('ABSPATH') or die(exit());
+defined('ABSPATH') or exit;
 
 use NXHBQU\Config;
 
